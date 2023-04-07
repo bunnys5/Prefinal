@@ -21,43 +21,36 @@ public class test7P extends JFrame {
 	private JLabel imageLabel;
 	
 	public test7P() {
+		super("My image chooser");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(500, 500);
 		
-		
-		// Set up the form
-		super("Image Chooser");
-		 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        setSize(1000, 1000);
-		
-		// Set up the image label
 		imageLabel = new JLabel();
 		imageLabel.setHorizontalAlignment(JLabel.CENTER);
 		imageLabel.setVerticalAlignment(JLabel.CENTER);
 		add(imageLabel, BorderLayout.CENTER);
 		
-		// Set up file chooser button
-		JButton chooseButton = new JButton("Choose Image");
+		JButton chooseButton = new JButton("Chooser image");
 		chooseButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser chooser = new JFileChooser();
 				FileNameExtensionFilter filter = new FileNameExtensionFilter(
-					"Image", "jpg", "jpeg", "png", "gif");
+						"images", "jpg", "jpeg", "png", "gif");
 				chooser.setFileFilter(filter);
 				int returnVal = chooser.showOpenDialog(test7P.this);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					File file = chooser.getSelectedFile();
+					
 					try {
 						Image image = Toolkit.getDefaultToolkit().getImage(file.getAbsolutePath());
-						
-					} catch(Exception ex) {
+					}catch (Exception ex) {
 						JOptionPane.showMessageDialog(test7P.this, "Error loading image: " + ex.getMessage());
 					}
 				}
 			}
 		});
 		add(chooseButton, BorderLayout.SOUTH);
-		
 	}
-	
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
